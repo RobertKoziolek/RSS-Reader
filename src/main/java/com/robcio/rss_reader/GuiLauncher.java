@@ -38,7 +38,8 @@ public class GuiLauncher extends Application {
         final VBox box = new VBox();
         box.getChildren()
            .add(listView);
-        VBox.setVgrow(listView, Priority.ALWAYS);
+//        VBox.setVgrow(listView, Priority.ALWAYS);
+        box.setFillWidth(true);
 
         final StackPane root = new StackPane();
         root.getChildren()

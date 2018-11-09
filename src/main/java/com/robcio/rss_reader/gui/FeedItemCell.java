@@ -8,6 +8,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import javafx.scene.text.TextAlignment;
 
 import static com.robcio.rss_reader.constants.Numeral.*;
 
@@ -24,10 +25,13 @@ public class FeedItemCell extends ListCell<FeedModel> {
         this.headerLabel = new Label();
         this.headerLabel.setFont(Font.font(18));
         this.headerLabel.setGraphic(this.imageView);
+        this.headerLabel.setWrapText(true);
+        this.headerLabel.setMaxWidth(WIDTH - THUMBNAIL_SMALL_WIDTH/2);
+        this.headerLabel.setTextAlignment(TextAlignment.JUSTIFY);
 
         setThumbnailSize(THUMBNAIL_SMALL_WIDTH, THUMBNAIL_SMALL_HEIGHT);
     }
-
+ static int anInt = 0;
     @Override
     protected void updateItem(final FeedModel item, final boolean empty) {
         super.updateItem(item, empty);
@@ -46,7 +50,11 @@ public class FeedItemCell extends ListCell<FeedModel> {
             headerLabel.setOnMouseClicked(event -> {
                 item.setExpanded(!item.isExpanded());
                 if (item.isExpanded()) {
-                    vBoxChildren.add(new Label(item.getContent()));
+                    final Label descriptionLabel = new Label(item.getContent());
+                    descriptionLabel.setMaxWidth(WIDTH-25);
+                    descriptionLabel.setTextAlignment(TextAlignment.JUSTIFY);
+                    descriptionLabel.setWrapText(true);
+                    vBoxChildren.add(descriptionLabel);
                     setThumbnailSize(THUMBNAIL_LARGE_WIDTH, THUMBNAIL_LARGE_HEIGHT);
                 } else {
                     vBoxChildren.remove(1, vBoxChildren.size());

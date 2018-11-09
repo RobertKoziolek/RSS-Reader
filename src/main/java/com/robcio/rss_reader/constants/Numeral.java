@@ -1,7 +1,7 @@
 package com.robcio.rss_reader.constants;
 
 public class Numeral {
-    public static final int WIDTH = 900;
+    public static final int WIDTH = 500;
     public static final int HEIGHT = 700;
 
     public static final double THUMBNAIL_SMALL_WIDTH = 60.;

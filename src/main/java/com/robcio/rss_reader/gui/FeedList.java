@@ -15,8 +15,13 @@ public class FeedList extends ListView<FeedModel> {
     }
 
     public void fill(final List<FeedModel> modelList) {
+        clear();
         final ObservableList<FeedModel> observableList = modelList.stream()
                                                                   .collect(Collectors.toCollection(FXCollections::observableArrayList));
         setItems(observableList);
+    }
+
+    private void clear() {
+        setItems(null);
     }
 }

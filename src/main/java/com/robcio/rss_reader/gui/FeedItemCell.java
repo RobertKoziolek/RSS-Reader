@@ -12,12 +12,10 @@ import javafx.scene.text.TextAlignment;
 
 import static com.robcio.rss_reader.constants.Numeral.*;
 
-
 public class FeedItemCell extends ListCell<FeedModel> {
 
     private final ImageView imageView;
     private final Label headerLabel;
-
 
     FeedItemCell() {
         super();
@@ -31,12 +29,13 @@ public class FeedItemCell extends ListCell<FeedModel> {
 
         setThumbnailSize(THUMBNAIL_SMALL_WIDTH, THUMBNAIL_SMALL_HEIGHT);
     }
- static int anInt = 0;
+
     @Override
     protected void updateItem(final FeedModel item, final boolean empty) {
         super.updateItem(item, empty);
         if (empty || item == null) {
             imageView.setImage(null);
+            setThumbnailSize(THUMBNAIL_SMALL_WIDTH, THUMBNAIL_SMALL_HEIGHT);
             setGraphic(null);
             setText(null);
         } else {

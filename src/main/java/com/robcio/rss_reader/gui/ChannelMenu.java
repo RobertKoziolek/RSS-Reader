@@ -29,7 +29,7 @@ public class ChannelMenu extends Menu {
             try {
                 final List<FeedModel> feedList = feedDownloader.getFeed(url);
                 listView.fill(feedList);
-            } catch (FeedException e) {
+            } catch (final FeedException e) {
                 System.out.println("Could not use provided URL");
             }
         });

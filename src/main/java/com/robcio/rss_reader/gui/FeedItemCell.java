@@ -1,5 +1,6 @@
 package com.robcio.rss_reader.gui;
 
+import com.robcio.rss_reader.GuiLauncher;
 import com.robcio.rss_reader.model.FeedModel;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
@@ -19,13 +20,13 @@ public class FeedItemCell extends ListCell<FeedModel> {
 
     FeedItemCell() {
         super();
-        this.imageView = new ImageView();
-        this.headerLabel = new Label();
-        this.headerLabel.setFont(Font.font(18));
-        this.headerLabel.setGraphic(this.imageView);
-        this.headerLabel.setWrapText(true);
-        this.headerLabel.setMaxWidth(WIDTH - THUMBNAIL_SMALL_WIDTH/2);
-        this.headerLabel.setTextAlignment(TextAlignment.JUSTIFY);
+        imageView = new ImageView();
+        headerLabel = new Label();
+        headerLabel.setFont(Font.font(18));
+        headerLabel.setGraphic(imageView);
+        headerLabel.setWrapText(true);
+        headerLabel.setMaxWidth(WIDTH - THUMBNAIL_SMALL_WIDTH / 2);
+        headerLabel.setTextAlignment(TextAlignment.JUSTIFY);
 
         setThumbnailSize(THUMBNAIL_SMALL_WIDTH, THUMBNAIL_SMALL_HEIGHT);
     }
@@ -49,11 +50,7 @@ public class FeedItemCell extends ListCell<FeedModel> {
             headerLabel.setOnMouseClicked(event -> {
                 item.setExpanded(!item.isExpanded());
                 if (item.isExpanded()) {
-                    final Label descriptionLabel = new Label(item.getContent());
-                    descriptionLabel.setMaxWidth(WIDTH-25);
-                    descriptionLabel.setTextAlignment(TextAlignment.JUSTIFY);
-                    descriptionLabel.setWrapText(true);
-                    vBoxChildren.add(descriptionLabel);
+                    vBoxChildren.add(getDescriptionLabel(item));
                     setThumbnailSize(THUMBNAIL_LARGE_WIDTH, THUMBNAIL_LARGE_HEIGHT);
                 } else {
                     vBoxChildren.remove(1, vBoxChildren.size());
@@ -62,6 +59,17 @@ public class FeedItemCell extends ListCell<FeedModel> {
             });
             setGraphic(vBox);
         }
+    }
+
+    private Label getDescriptionLabel(final FeedModel item) {
+        final Label descriptionLabel = new Label(item.getContent());
+        descriptionLabel.setMaxWidth(WIDTH - 25);
+        descriptionLabel.setTextAlignment(TextAlignment.JUSTIFY);
+        descriptionLabel.setWrapText(true);
+        descriptionLabel.setOnMouseClicked(event -> {
+            GuiLauncher.openUrlInBrowser(item.getLink());
+        });
+        return descriptionLabel;
     }
 
     private void setThumbnailSize(final double thumbnailSmallWidth, final double thumbnailSmallHeight) {

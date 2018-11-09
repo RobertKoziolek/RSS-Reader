@@ -6,16 +6,11 @@ import com.robcio.rss_reader.gui.FeedList;
 import com.robcio.rss_reader.model.FeedModel;
 import com.rometools.rome.io.FeedException;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.Node;
+import javafx.application.HostServices;
 import javafx.scene.Scene;
-import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Priority;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -26,12 +21,19 @@ import static com.robcio.rss_reader.constants.Numeral.WIDTH;
 
 public class GuiLauncher extends Application {
 
+    private static HostServices hostServices;
+
     public static void main(final String[] args) {
         launch(args);
     }
 
+    public static void openUrlInBrowser(final String url) {
+        hostServices.showDocument(url);
+    }
+
     @Override
     public void start(final Stage primaryStage) throws FeedException {
+        hostServices = getHostServices();
         primaryStage.setTitle("RSS-Reader!");
 
         final FeedDownloader feedDownloader = new FeedDownloader();
